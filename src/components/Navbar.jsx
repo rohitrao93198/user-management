@@ -1,34 +1,29 @@
-import React, { useContext } from "react";
-import { AuthContext } from "../context/AuthContext";
+// src/components/Navbar.jsx
 import { AppBar, Toolbar, Typography, Button, Box } from "@mui/material";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-const Navbar = () => {
-    const { logout } = useContext(AuthContext);
+function Navbar() {
+    const navigate = useNavigate();
+
+    const handleLogout = () => {
+        localStorage.removeItem("currentUser");
+        navigate("/");
+    };
 
     return (
-        <AppBar
-            position="fixed"
-            sx={{
-                zIndex: 1300,
-                width: "100%",
-            }}
-        >
-            <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
-                <Typography variant="h6">
-                    <Link to="/" style={{ color: "white", textDecoration: "none" }}>
-                        User Management
-                    </Link>
+        <AppBar position="static">
+            <Toolbar>
+                <Typography variant="h6" sx={{ flexGrow: 1 }}>
+                    Dashboard
                 </Typography>
-
                 <Box>
-                    <Button color="inherit" onClick={logout}>
+                    <Button color="inherit" onClick={handleLogout}>
                         Logout
                     </Button>
                 </Box>
             </Toolbar>
         </AppBar>
     );
-};
+}
 
 export default Navbar;
